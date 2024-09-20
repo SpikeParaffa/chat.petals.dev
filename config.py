@@ -24,31 +24,37 @@ MODEL_FAMILIES = {
                 max_session_length=2048,
                 sep_token="\n\n",
                 stop_token="</s>",
-                extra_stop_sequences=["\n\nHuman"],
+                extra_stop_sequences=["\nHuman"],
                 generation_params=default_chat_config.generation_params,
             ),
         ),
     ],
-    # "Llama 2": [
-    #     ModelConfig(
-    #         ModelBackendConfig(repository="petals-team/StableBeluga2", aliases=["stabilityai/StableBeluga2"]),
-    #         ModelFrontendConfig(
-    #             name="Stable Beluga 2 (70B)",
-    #             model_card="https://huggingface.co/stabilityai/StableBeluga2",
-    #             license="https://huggingface.co/stabilityai/StableBeluga2/blob/main/LICENSE.txt",
-    #         ),
-    #         default_chat_config,
-    #     ),
-    #     # ModelConfig(
-    #     #     ModelBackendConfig(repository="meta-llama/Llama-2-70b-chat-hf"),
-    #     #     ModelFrontendConfig(
-    #     #         name="Llama 2 (70B-Chat)",
-    #     #         model_card="https://huggingface.co/meta-llama/Llama-2-70b-chat-hf",
-    #     #         license="https://bit.ly/llama2-license",
-    #     #     ),
-    #     #     default_chat_config,
-    #     # ),
-    # ],
+    "Llama 3": [
+        ModelConfig(
+            ModelBackendConfig(repository="meta-llama/Meta-Llama-3.1-8B-Instruct"),
+            ModelFrontendConfig(
+                name="Llama 3.1 8B IT",
+                model_card="https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct",
+                license="https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE",
+            ),
+            ModelChatConfig(
+                max_session_length=2048,
+                sep_token="\n\n",
+                stop_token=["<|start_header_id|>", "<|end_header_id|>", "<|eot_id|>"],
+                extra_stop_sequences=["<|start_header_id|>", "<|end_header_id|>", "<|eot_id|>"],
+                generation_params=default_chat_config.generation_params,
+            ),
+        ),
+        # ModelConfig(
+        #     ModelBackendConfig(repository="meta-llama/Llama-2-70b-chat-hf"),
+        #     ModelFrontendConfig(
+        #         name="Llama 2 (70B-Chat)",
+        #         model_card="https://huggingface.co/meta-llama/Llama-2-70b-chat-hf",
+        #         license="https://bit.ly/llama2-license",
+        #     ),
+        #     default_chat_config,
+        # ),
+    ],
     # "Falcon": [
     #     ModelConfig(
     #         ModelBackendConfig(repository="tiiuae/falcon-180B-chat", public_api=False),
@@ -105,9 +111,9 @@ MODEL_FAMILIES = {
     # ],
 }
 
-# INITIAL_PEERS = PUBLIC_INITIAL_PEERS
+INITIAL_PEERS = PUBLIC_INITIAL_PEERS
 # Set this to a list of multiaddrs to connect to a private swarm instead of the public one, for example:
-INITIAL_PEERS = ['/ip4/10.0.1.195/tcp/31337/p2p/QmTQzBrsF37833RgHz4qUZY3RGk9F2d3y5TKAHDX9LB6mM']
+INITIAL_PEERS = ['/ip4/172.27.40.250/tcp/31337/p2p/QmTQzBrsF37833RgHz4qUZY3RGk9F2d3y5TKAHDX9LB6mM']
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
